@@ -1,0 +1,50 @@
+.login,
+.signup {
+  padding-top: 50px;
+}
+
+.login > form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--rtc-tittle);
+  height: 350px;
+  padding-top: var(--rtc-padding-l);
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.signup > form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--rtc-buttons);
+  height: 350px;
+  padding-top: var(--rtc-padding-l);
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.signup button {
+  background: var(--rtc-tittle);
+}
+
+.login h1,
+.signup h1 {
+  padding-bottom: var(--rtc-padding-m);
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.login input,
+.signup input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
+}

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  /*FONT*/
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  a {
+    font-family: 'Rubik';
+  }
+  /* BORDER RADIUS */
+  --rtc-br: 8px;
+
+  /*COLORS*/
+
+  --rtc-buttons: #7b3b3b;
+  --rtc-tittle: #668284;
+  --rtc-black: #2a2829;
+
+  /* SPACINGS */
+  --rtc-margin-xs: 10px;
+  --rtc-margin-s: 20px;
+  --rtc-margin-m: 30px;
+  --rtc-margin-l: 40px;
+  --rtc-margin-xl: 50px;
+  --rtc-margin-section: 100px;
+
+  --rtc-padding-xs: 10px;
+  --rtc-padding-s: 20px;
+  --rtc-padding-m: 30px;
+  --rtc-padding-l: 40px;
+  --rtc-padding-xl: 50px;
+
+  --rtc-gap-xs: 10px;
+  --rtc-gap-s: 20px;
+  --rtc-gap-m: 30px;
+  --rtc-gap-l: 40px;
+  --rtc-gap-xl: 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+button {
+  background: var(--rtc-buttons);
+  color: #fff;
+  border-radius: 20px;
+  padding: 10px 30px;
+  border: none;
+}
