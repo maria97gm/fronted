@@ -1,0 +1,35 @@
+.cvmessage {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--rtc-tittle);
+  height: auto;
+  padding: var(--rtc-padding-l);
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.cvmessage h1 {
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+.cvmessage h2 {
+  color: #fff;
+  font-weight: 400;
+  padding-bottom: 30px;
+}
+
+.cvmessage button {
+  cursor: pointer;
+  border: 1px solid var(--rtc-buttons);
+}
+
+.cvmessage button:hover {
+  background: var(--rtc-tittle);
+  border: 1px solid #fff;
+}

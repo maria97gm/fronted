@@ -15,11 +15,18 @@ export const createHeader = () => {
 
     item.addEventListener('click', (e) => {
       e.preventDefault()
-      history.pushState({}, '', route.path)
-      route.page()
+      navigateTo(route.path)
     })
 
     nav.appendChild(item)
   }
   header.appendChild(nav)
+}
+
+export const navigateTo = (path) => {
+  const route = routes.find((route) => route.path === path)
+  if (route) {
+    history.pushState({}, '', path)
+    route.page()
+  }
 }

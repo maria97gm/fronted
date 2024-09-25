@@ -1,41 +1,46 @@
 import { createForm } from '../../components/form/form'
+import { navigateTo } from '../../components/header/header'
+import { Api } from '../../utils/API/api'
 import './login.css'
 
 export const Login = () => {
   createForm({
     formClass: 'login',
     title: 'Inicia sesión en Teatrillados',
-    buttonText: 'Iniciar sesión'
+    buttonText: 'Iniciar sesión',
+    funcion: async (userName, password) => {
+      const body = JSON.stringify({
+        userName,
+        password
+      })
+      const res = await Api('/api/v1/users/login', 'POST', body)
+      return res
+    },
+    respuesta: 'Usuario o contraseña incorrecto',
+    errorMessage: 'Usuario o contraseña incorrecto, inténtalo de nuevo',
+    funcionExito: (res) => {
+      localStorage.setItem('userId', res.user._id)
+      localStorage.setItem('token', res.token)
+      navigateTo('/')
+    }
   })
+  signUp()
 }
 
-// export const Login = () => {
-//   const app = document.querySelector('#app')
-//   app.innerHTML = ''
+const signUp = () => {
+  const app = document.querySelector('#app')
 
-//   const loginContainer = document.createElement('div')
-//   loginContainer.classList.add('login')
+  const divSignUp = document.createElement('div')
+  divSignUp.classList.add('message')
+  divSignUp.innerHTML = `
+    <p>Si aun no tienes tu usuario creado, <a href="/sign-up" id="signUpLink">haz click aquí</a></p>
+  `
 
-//   const h1 = document.createElement('h1')
-//   const form = document.createElement('form')
-//   const userNameInput = document.createElement('input')
-//   const passwordInput = document.createElement('input')
-//   const button = document.createElement('button')
+  app.append(divSignUp)
 
-//   h1.textContent = 'Inicia sesión en Teatrillados'
-
-//   passwordInput.type = 'password'
-
-//   userNameInput.placeholder = 'Usuario'
-//   passwordInput.placeholder = 'Contraseña'
-//   button.textContent = 'Iniciar sesión'
-
-//   form.addEventListener('submit', (e) => {
-//     e.preventDefault()
-//     console.log('probando')
-//   })
-
-//   app.appendChild(loginContainer)
-//   loginContainer.append(form)
-//   form.append(h1, userNameInput, passwordInput, button)
-// }
+  const signUpLink = document.querySelector('#signUpLink')
+  signUpLink.addEventListener('click', (e) => {
+    e.preventDefault()
+    navigateTo('/sign-up')
+  })
+}

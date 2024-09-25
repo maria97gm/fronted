@@ -1,6 +1,14 @@
 import './form.css'
 
-export const createForm = ({ formClass, title, buttonText, funcion }) => {
+export const createForm = ({
+  formClass,
+  title,
+  buttonText,
+  funcion,
+  respuesta,
+  errorMessage,
+  funcionExito
+}) => {
   const app = document.querySelector('#app')
   app.innerHTML = ''
 
@@ -18,13 +26,30 @@ export const createForm = ({ formClass, title, buttonText, funcion }) => {
   passwordInput.type = 'password'
 
   userNameInput.placeholder = 'Usuario'
+  userNameInput.required = true
   passwordInput.placeholder = 'Contraseña'
+  passwordInput.required = true
+
   button.textContent = buttonText
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    console.log('probando')
-    funcion(userNameInput.value, passwordInput.value)
+
+    const res = await funcion(userNameInput.value, passwordInput.value, form)
+
+    const existingError = document.querySelector('.error-message')
+    if (existingError) {
+      existingError.remove()
+    }
+
+    if (res === respuesta) {
+      const pError = document.createElement('p')
+      pError.classList.add('error-message')
+      pError.textContent = errorMessage
+      form.appendChild(pError)
+    } else {
+      funcionExito(res)
+    }
   })
 
   app.appendChild(formContainer)

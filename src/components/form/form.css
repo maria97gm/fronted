@@ -41,10 +41,8 @@
   text-transform: uppercase;
 }
 
-.login input,
-.signup input {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  border: none;
+.login p,
+.signup p {
+  color: #fff;
+  padding-top: 10px;
 }
