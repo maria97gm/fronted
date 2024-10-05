@@ -1,0 +1,37 @@
+.castings {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--rtc-buttons);
+  height: auto;
+  padding: var(--rtc-padding-l);
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.castings h1 {
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+.castings h2 {
+  color: #fff;
+  font-weight: 400;
+  padding-bottom: 30px;
+}
+
+.castings button {
+  cursor: pointer;
+  border: 1px solid var(--rtc-tittle);
+  background: var(--rtc-tittle);
+}
+
+.castings button:hover {
+  background: #fff;
+  color:var(--rtc-tittle);
+  border: 1px solid #fff;
+}

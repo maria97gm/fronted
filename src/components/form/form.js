@@ -1,3 +1,4 @@
+import { offLoader, onLoader } from '../loader/loader'
 import './form.css'
 
 export const createForm = ({
@@ -34,21 +35,28 @@ export const createForm = ({
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    onLoader()
+    const minLoadTime = 3000 // Tiempo mínimo en milisegundos (1 segundo)
 
-    const res = await funcion(userNameInput.value, passwordInput.value, form)
+    try {
+      const res = await funcion(userNameInput.value, passwordInput.value, form)
 
-    const existingError = document.querySelector('.error-message')
-    if (existingError) {
-      existingError.remove()
-    }
+      const existingError = document.querySelector('.error-message')
+      if (existingError) {
+        existingError.remove()
+      }
 
-    if (res === respuesta) {
-      const pError = document.createElement('p')
-      pError.classList.add('error-message')
-      pError.textContent = errorMessage
-      form.appendChild(pError)
-    } else {
-      funcionExito(res)
+      if (res === respuesta) {
+        const pError = document.createElement('p')
+        pError.classList.add('error-message')
+        pError.textContent = errorMessage
+        form.appendChild(pError)
+      } else {
+        funcionExito(res)
+      }
+    } catch (error) {
+    } finally {
+      offLoader()
     }
   })
 

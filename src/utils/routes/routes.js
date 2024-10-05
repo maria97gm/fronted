@@ -3,6 +3,7 @@ import { Castings } from '../../pages/Castings/castings'
 import { Inicio } from '../../pages/Inicio/inicio'
 import { SignUp } from '../../pages/Sign up/signup'
 import { CV } from '../../pages/CV/cv'
+import { nuevoCasting } from '../../pages/nuevoCasting/nuevoCasting'
 
 export const routes = [
   {
@@ -15,6 +16,12 @@ export const routes = [
     text: 'Mis Castings',
     page: Castings
   },
+  {
+    path: '/nuevos-castings',
+    text: 'Añadir Casting',
+    page: nuevoCasting
+  },
+
   {
     path: '/login',
     text: 'Login',

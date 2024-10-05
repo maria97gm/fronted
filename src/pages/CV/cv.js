@@ -1,3 +1,4 @@
+import { offLoader, onLoader } from '../../components/loader/loader'
 import { message } from '../../components/messageCV/messageCV'
 import { Api } from '../../utils/API/api'
 
@@ -29,7 +30,7 @@ export const CV = () => {
 
   const updateData = async (event) => {
     event.preventDefault()
-
+    onLoader()
     const formData = new FormData()
     formData.append('name', nameInput.value)
     formData.append('age', ageInput.value)
@@ -37,22 +38,27 @@ export const CV = () => {
 
     const userId = localStorage.getItem('userId')
     const response = await Api(`/api/v1/users/${userId}`, 'PUT', formData, true)
-
-    if (response === 'Error al actualizar el CV') {
-      message({
-        firstMessage: '¡Bienvenido a Teatrillados!',
-        secondMessage: 'Primero debes crearte un usuario para actualizar tu CV',
-        buttonCV: 'Registrarme',
-        navigation: '/sign-up'
-      })
-    } else {
-      message({
-        firstMessage: '¡Ya hemos actualizado tus datos!',
-        secondMessage:
-          'Te invitamos a que navegues en la web y conozcas nuestros castings',
-        buttonCV: 'Ver todos los castings',
-        navigation: '/'
-      })
+    try {
+      if (response === 'Error al actualizar el CV') {
+        message({
+          firstMessage: '¡Bienvenido a Teatrillados!',
+          secondMessage:
+            'Primero debes crearte un usuario para actualizar tu CV',
+          buttonCV: 'Registrarme',
+          navigation: '/sign-up'
+        })
+      } else {
+        message({
+          firstMessage: '¡Ya hemos actualizado tus datos!',
+          secondMessage:
+            'Te invitamos a que navegues en la web y conozcas nuestros castings',
+          buttonCV: 'Ver todos los castings',
+          navigation: '/'
+        })
+      }
+    } catch (error) {
+    } finally {
+      offLoader()
     }
   }
 

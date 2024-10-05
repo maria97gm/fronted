@@ -33,6 +33,11 @@
   background: var(--rtc-tittle);
 }
 
+.login button:hover,
+.signup button:hover {
+  cursor: pointer;
+}
+
 .login h1,
 .signup h1 {
   padding-bottom: var(--rtc-padding-m);

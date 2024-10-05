@@ -1,5 +1,5 @@
 import { createForm } from '../../components/form/form'
-import { navigateTo } from '../../components/header/header'
+import { createHeader, navigateTo } from '../../components/header/header'
 import { Api } from '../../utils/API/api'
 import './login.css'
 
@@ -21,6 +21,10 @@ export const Login = () => {
     funcionExito: (res) => {
       localStorage.setItem('userId', res.user._id)
       localStorage.setItem('token', res.token)
+      localStorage.setItem('castings', JSON.stringify(res.user.castings))
+      localStorage.setItem('userRol', res.user.rol)
+
+      createHeader()
       navigateTo('/')
     }
   })
@@ -32,9 +36,12 @@ const signUp = () => {
 
   const divSignUp = document.createElement('div')
   divSignUp.classList.add('message')
-  divSignUp.innerHTML = `
-    <p>Si aun no tienes tu usuario creado, <a href="/sign-up" id="signUpLink">haz click aquí</a></p>
-  `
+  divSignUp.innerHTML = `  <p>
+      Si aun no tienes tu usuario creado,
+      <a href='/sign-up' id='signUpLink'>
+        haz click aquí
+      </a>
+    </p>`
 
   app.append(divSignUp)
 

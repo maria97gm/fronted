@@ -1,21 +1,3 @@
-// export const Api = async (endpoint, method = 'GET', body = null) => {
-//   try {
-//     const response = await fetch(`http://localhost:3000${endpoint}`, {
-//       method,
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: body ? body : undefined
-//     })
-
-//     const res = await response.json()
-//     console.log(res)
-//     return res
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 export const Api = async (
   endpoint,
   method = 'GET',
@@ -37,11 +19,14 @@ export const Api = async (
       body: body ? body : undefined
     }
 
-    const response = await fetch(`http://localhost:3000${endpoint}`, {
-      method,
-      headers,
-      body: body ? body : undefined
-    })
+    const response = await fetch(
+      `https://backteatrillados.vercel.app${endpoint}`,
+      {
+        method,
+        headers,
+        body: body ? body : undefined
+      }
+    )
 
     const res = await response.json()
     return res

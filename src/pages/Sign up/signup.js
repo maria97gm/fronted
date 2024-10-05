@@ -1,5 +1,5 @@
 import { createForm } from '../../components/form/form'
-import { navigateTo } from '../../components/header/header'
+import { createHeader, navigateTo } from '../../components/header/header'
 import { Api } from '../../utils/API/api'
 import './signup.css'
 
@@ -22,6 +22,7 @@ export const SignUp = () => {
     funcionExito: (res) => {
       localStorage.setItem('userId', res.user._id)
       localStorage.setItem('token', res.token)
+      createHeader()
       navigateTo('/cv')
     }
   })

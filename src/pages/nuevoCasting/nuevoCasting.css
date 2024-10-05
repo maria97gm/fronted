@@ -1,0 +1,58 @@
+.newCasting {
+  padding-top: 50px;
+}
+
+.newCasting > form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--rtc-tittle);
+  height: auto;
+  padding: var(--rtc-padding-l);
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.newCasting h1 {
+  padding-bottom: var(--rtc-padding-m);
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.newCasting h2 {
+  padding-top: var(--rtc-padding-m);
+  color: #fff;
+  font-weight: 400;
+}
+
+.newCasting input[type='text'],
+.newCasting input[type='number'] {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.newCasting input[type='file'] {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.newCasting button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: var(--rtc-buttons);
+  color: #fff;
+  border: 1px solid var(--rtc-buttons);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.newCasting button:hover {
+  background: var(--rtc-tittle);
+  border: 1px solid #fff;
+}
+
