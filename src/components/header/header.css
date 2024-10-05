@@ -22,21 +22,20 @@ nav > a:hover {
   font-weight: 700;
 }
 
-/* Media query para pantallas de 450px o menos */
 @media (max-width: 450px) {
   nav {
-    flex-direction: column; /* Apila los items verticalmente */
-    justify-content: center; /* Centra los items */
-    align-items: flex-start; /* Opcional: para que los links se alineen a la izquierda */
-    padding: 10px 0; /* Añade algo de padding */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
   }
 
   nav > a {
-    margin: 5px 0; /* Añade margen entre los enlaces */
-    font-size: 14px; /* Reduce el tamaño del texto si es necesario */
+    margin: 5px 0;
+    font-size: 14px;
   }
 
   .header {
-    height: auto; /* Ajusta la altura si es necesario */
+    height: auto;
   }
 }
