@@ -35,18 +35,39 @@ export const printCastings = (castings, isMyCastingsPage = false) => {
     if (isMyCastingsPage) {
       button.textContent = 'Borrar mi inscripción'
       button.classList.add('delete-inscription')
+      console.log('hola')
 
-      button.addEventListener('click', () => {
-        const updatedCastings = castingsSaved.filter((id) => id !== casting._id)
+      button.addEventListener('click', async () => {
+        try {
+          const response = await Api(
+            `/api/v1/users/${userId}/${casting._id}`,
+            'DELETE',
+            null,
+            true
+          )
 
-        localStorage.setItem('castings', JSON.stringify(updatedCastings))
-        castingsSaved = updatedCastings
-        castingDiv.remove()
+          if (response) {
+            const updatedCastings = castingsSaved.filter(
+              (id) => id !== casting._id
+            )
+            localStorage.setItem('castings', JSON.stringify(updatedCastings))
+            castingsSaved = updatedCastings
 
-        const storedCastings = JSON.parse(localStorage.getItem('castings'))
+            casting.userCount -= 1
+            number.textContent = `Número de inscritos: ${casting.userCount}`
+            console.log(casting.userCount)
 
-        if (storedCastings.length === 0) {
-          castingsEmpty()
+            castingDiv.remove()
+            console.log(casting.userCount)
+
+            const storedCastings = JSON.parse(localStorage.getItem('castings'))
+            if (storedCastings.length === 0) {
+              castingsEmpty() 
+            }
+          }
+        } catch (error) {
+          console.error('Error al desinscribirse:', error)
+          alert('Hubo un error al intentar eliminar tu inscripción.')
         }
       })
     } else {
