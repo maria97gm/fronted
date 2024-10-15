@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.inscrito {
+  cursor: default !important;
+}
+
 .allCastings button:hover,
 .inscrito {
   background: var(--rtc-tittle);

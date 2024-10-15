@@ -35,9 +35,10 @@ export const printCastings = (castings, isMyCastingsPage = false) => {
     if (isMyCastingsPage) {
       button.textContent = 'Borrar mi inscripción'
       button.classList.add('delete-inscription')
-      console.log('hola')
 
       button.addEventListener('click', async () => {
+        const userId = localStorage.getItem('userId')
+
         try {
           const response = await Api(
             `/api/v1/users/${userId}/${casting._id}`,
@@ -55,14 +56,12 @@ export const printCastings = (castings, isMyCastingsPage = false) => {
 
             casting.userCount -= 1
             number.textContent = `Número de inscritos: ${casting.userCount}`
-            console.log(casting.userCount)
 
             castingDiv.remove()
-            console.log(casting.userCount)
 
             const storedCastings = JSON.parse(localStorage.getItem('castings'))
             if (storedCastings.length === 0) {
-              castingsEmpty() 
+              castingsEmpty()
             }
           }
         } catch (error) {
@@ -92,6 +91,9 @@ export const printCastings = (castings, isMyCastingsPage = false) => {
 }
 
 const clickButtonHome = async (casting, button, number) => {
+  if (button.disabled || button.classList.contains('inscrito')) {
+    return
+  }
   const token = localStorage.getItem('token')
 
   if (token) {
@@ -102,6 +104,7 @@ const clickButtonHome = async (casting, button, number) => {
 
       const currentCount = parseInt(number.textContent.split(': ')[1]) || 0
       number.textContent = `Número de inscritos: ${currentCount + 1}`
+      button.disabled = true
     }
   } else {
     navigateTo('/login')
