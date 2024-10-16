@@ -1,9 +1,21 @@
+import { navigateTo } from '../../components/header/header'
 import { offLoader, onLoader } from '../../components/loader/loader'
 import { Api } from '../../utils/API/api'
 import './nuevoCasting.css'
 
-export const nuevoCasting = () => {
+export const nuevoCasting = async () => {
   const app = document.querySelector('#app')
+
+  onLoader()
+
+  const rol = localStorage.getItem('userRol')
+
+  if (!rol || rol !== 'admin') {
+    navigateTo('/')
+    offLoader()
+    return
+  }
+
   app.innerHTML = ''
 
   const newCastingContainer = document.createElement('div')
@@ -41,11 +53,8 @@ export const nuevoCasting = () => {
     formData.append('date', dateInput.value)
     formData.append('img', photo.files[0])
 
-    const response = await Api('/api/v1/castings', 'POST', formData, true)
-
     try {
-      const response = await Api('/api/v1/castings', 'POST', formData)
-
+      const response = await Api('/api/v1/castings', 'POST', formData, true)
       if (response === 'No hemos podido crear un nuevo casting') {
         alert('Error al añadir el casting:')
       } else {
@@ -74,4 +83,5 @@ export const nuevoCasting = () => {
 
   newCastingContainer.append(form)
   app.append(newCastingContainer)
+  offLoader()
 }
