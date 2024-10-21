@@ -59,9 +59,8 @@ export const printCastings = (castings, isMyCastingsPage = false) => {
 
             castingDiv.remove()
 
-            const storedCastings = JSON.parse(localStorage.getItem('castings'))
-            if (storedCastings.length === 0) {
-              castingsEmpty()
+            if (updatedCastings.length === 0) {
+              castingsEmpty() 
             }
           }
         } catch (error) {

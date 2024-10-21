@@ -47,6 +47,7 @@ export const nuevoCasting = async () => {
   const addCasting = async (event) => {
     event.preventDefault()
     onLoader()
+
     const formData = new FormData()
     formData.append('performance', performanceInput.value)
     formData.append('city', placeInput.value)
