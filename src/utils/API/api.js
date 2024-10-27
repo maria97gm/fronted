@@ -21,6 +21,7 @@ export const Api = async (
 
     const response = await fetch(
       `https://backteatrillados.vercel.app${endpoint}`,
+      // `http://localhost:3000${endpoint}`,
       {
         method,
         headers,
