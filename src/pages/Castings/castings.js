@@ -7,17 +7,28 @@ export const Castings = async () => {
   const app = document.querySelector('#app')
   app.innerHTML = ''
 
-  const allCastings = await Api('/api/v1/castings')
+  const token = localStorage.getItem('token')
 
-  const castingsSaved = JSON.parse(localStorage.getItem('castings')) || []
+  if (!token) {
+    castingsEmpty()
+    return
+  }
 
-  const myCastings = allCastings.filter((casting) =>
-    castingsSaved.includes(casting._id)
-  )
+  try {
+    const myCastings = await Api(
+      '/api/v1/users/mis-castings',
+      'GET',
+      null,
+      true
+    )
 
-  if (myCastings.length > 0) {
-    printCastings(myCastings, true)
-  } else {
+    if (myCastings && myCastings.length > 0) {
+      printCastings(myCastings, true)
+    } else {
+      castingsEmpty()
+    }
+  } catch (error) {
+    console.error('Error al obtener castings del usuario:', error)
     castingsEmpty()
   }
 }
@@ -36,4 +47,3 @@ export const castingsEmpty = () => {
     navigateTo('/')
   })
 }
-
