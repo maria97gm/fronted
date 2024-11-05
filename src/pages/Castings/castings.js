@@ -28,8 +28,13 @@ export const Castings = async () => {
       castingsEmpty()
     }
   } catch (error) {
-    console.error('Error al obtener castings del usuario:', error)
-    castingsEmpty()
+    if (error.response && error.response.status === 401) {
+      console.warn('Token inválido o expirado')
+      castingsEmpty()
+    } else {
+      console.error('Error al obtener castings del usuario:', error)
+      castingsEmpty()
+    }
   }
 }
 
