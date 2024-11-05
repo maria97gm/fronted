@@ -29,7 +29,8 @@ export const Castings = async () => {
     }
   } catch (error) {
     if (error.response && error.response.status === 401) {
-      console.warn('Token inválido o expirado')
+      localStorage.removeItem('token')
+
       castingsEmpty()
     } else {
       console.error('Error al obtener castings del usuario:', error)
@@ -46,7 +47,7 @@ export const castingsEmpty = () => {
     <h2>Puedes explorar nuestros castings de Teatrillados y apuntarte.</h2>
     <button id="exploreButton">Explorar castings</button>
   </div>
-`
+  `
   const exploreButton = document.getElementById('exploreButton')
   exploreButton.addEventListener('click', () => {
     navigateTo('/')

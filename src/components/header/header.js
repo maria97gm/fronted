@@ -71,7 +71,7 @@ export const navigateTo = (path) => {
         history.pushState({}, '', path)
         route.page()
       } else {
-        alert('No tienes permisos para acceder a esta página.') // Mensaje de advertencia
+        alert('No tienes permisos para acceder a esta página.')
       }
     } else {
       history.pushState({}, '', path)

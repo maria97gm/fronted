@@ -16,22 +16,25 @@ export const Api = async (
 
     if (!(body instanceof FormData)) {
       headers['Content-Type'] = 'application/json'
-      body: body ? body : undefined
     }
 
     const response = await fetch(
       `https://backteatrillados.vercel.app${endpoint}`,
-      // `http://localhost:3000${endpoint}`,
       {
         method,
         headers,
-        body: body ? body : undefined
+        body: body ? JSON.stringify(body) : undefined
       }
     )
 
-    const res = await response.json()
-    return res
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw { response: { status: response.status, message: errorData.message || 'Error en la API' }}
+    }
+
+    return await response.json()
   } catch (error) {
     console.error('Error en la API:', error)
+    throw error
   }
 }
