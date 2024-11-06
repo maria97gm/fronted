@@ -15,39 +15,33 @@ export const Castings = async () => {
   }
 
   try {
-    const myCastings = await Api(
-      '/api/v1/users/mis-castings',
-      'GET',
-      null,
-      true
-    )
+    const response = await Api('/api/v1/users/mis-castings', 'GET', null, true)
+
+    const myCastings = response.castings || []
 
     if (myCastings && myCastings.length > 0) {
       printCastings(myCastings, true)
     } else {
-      castingsEmpty()
-    }
-  } catch (error) {
-    if (error.response && error.response.status === 401) {
       localStorage.removeItem('token')
 
       castingsEmpty()
-    } else {
-      console.error('Error al obtener castings del usuario:', error)
-      castingsEmpty()
     }
+  } catch (error) {
+    console.error('Error al obtener castings del usuario:', error)
+    castingsEmpty()
   }
 }
 
 export const castingsEmpty = () => {
   const app = document.querySelector('#app')
   app.innerHTML = `
-  <div class="castings">
-    <h1>No tienes castings inscritos</h1>
-    <h2>Puedes explorar nuestros castings de Teatrillados y apuntarte.</h2>
-    <button id="exploreButton">Explorar castings</button>
-  </div>
+    <div class="castings">
+      <h1>No tienes castings inscritos</h1>
+      <h2>Puedes explorar nuestros castings de Teatrillados y apuntarte.</h2>
+      <button id="exploreButton">Explorar castings</button>
+    </div>
   `
+
   const exploreButton = document.getElementById('exploreButton')
   exploreButton.addEventListener('click', () => {
     navigateTo('/')
