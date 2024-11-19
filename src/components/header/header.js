@@ -1,4 +1,5 @@
 import { routes } from '../../utils/routes/routes'
+import { verifyToken } from '../authHeader/auth'
 import './header.css'
 
 export const createHeader = async () => {
@@ -7,54 +8,88 @@ export const createHeader = async () => {
   header.innerHTML = ''
 
   const nav = document.createElement('nav')
+
+  let isAuthenticated = false
+  try {
+    isAuthenticated = await verifyToken()
+  } catch (error) {
+    isAuthenticated = false 
+  }
+
   const rol = localStorage.getItem('userRol')
   for (const route of routes) {
-    if (route.text === 'Añadir Casting') {
-      if (rol === 'admin') {
-        const addCastingItem = document.createElement('a')
-        addCastingItem.textContent = 'Añadir Casting'
-        addCastingItem.href = route.path
-
-        addCastingItem.addEventListener('click', (e) => {
+    if (route.text === 'Mis castings') {
+      const item = document.createElement('a')
+      item.textContent = 'Mis castings'
+      item.href = route.path
+      item.addEventListener('click', (e) => {
+        e.preventDefault()
+        navigateTo(route.path)
+      })
+      nav.appendChild(item)
+    } else if (route.text === 'CV') {
+      if (isAuthenticated) {
+        const item = document.createElement('a')
+        item.textContent = 'CV'
+        item.href = route.path
+        item.addEventListener('click', (e) => {
           e.preventDefault()
           navigateTo(route.path)
         })
-
-        nav.appendChild(addCastingItem)
+        nav.appendChild(item)
+      }
+    } else if (route.text === 'Añadir Casting') {
+      if (isAuthenticated && rol === 'admin') {
+        const item = document.createElement('a')
+        item.textContent = 'Añadir Casting'
+        item.href = route.path
+        item.addEventListener('click', (e) => {
+          e.preventDefault()
+          navigateTo(route.path)
+        })
+        nav.appendChild(item)
+      }
+    } else if (route.text === 'Login') {
+      if (!isAuthenticated) {
+        const item = document.createElement('a')
+        item.textContent = 'Login'
+        item.href = route.path
+        item.addEventListener('click', (e) => {
+          e.preventDefault()
+          navigateTo(route.path)
+        })
+        nav.appendChild(item)
+      } else {
+        const item = document.createElement('a')
+        item.textContent = 'Logout'
+        item.href = '#'
+        item.addEventListener('click', (e) => {
+          e.preventDefault()
+          localStorage.clear() 
+          createHeader() 
+          navigateTo('/login') 
+        })
+        nav.appendChild(item)
       }
     } else if (route.text === 'Sign up') {
-      if (!localStorage.getItem('token')) {
-        const signUpItem = document.createElement('a')
-        signUpItem.textContent = 'Sign up'
-        signUpItem.href = route.path
-
-        signUpItem.addEventListener('click', (e) => {
+      if (!isAuthenticated) {
+        const item = document.createElement('a')
+        item.textContent = 'Sign up'
+        item.href = route.path
+        item.addEventListener('click', (e) => {
           e.preventDefault()
           navigateTo(route.path)
         })
-
-        nav.appendChild(signUpItem)
+        nav.appendChild(item)
       }
     } else {
       const item = document.createElement('a')
-      item.innerText = route.text
+      item.textContent = route.text
       item.href = route.path
-
-      if (route.text === 'Login' && localStorage.getItem('token')) {
-        item.textContent = 'Logout'
-        item.addEventListener('click', (e) => {
-          e.preventDefault()
-          localStorage.clear()
-          createHeader()
-          navigateTo('/login')
-        })
-      } else {
-        item.addEventListener('click', (e) => {
-          e.preventDefault()
-          navigateTo(route.path)
-        })
-      }
-
+      item.addEventListener('click', (e) => {
+        e.preventDefault()
+        navigateTo(route.path)
+      })
       nav.appendChild(item)
     }
   }
@@ -65,17 +100,7 @@ export const createHeader = async () => {
 export const navigateTo = (path) => {
   const route = routes.find((route) => route.path === path)
   if (route) {
-    if (route.text === 'Añadir Casting') {
-      const rol = localStorage.getItem('userRol')
-      if (rol === 'admin') {
-        history.pushState({}, '', path)
-        route.page()
-      } else {
-        alert('No tienes permisos para acceder a esta página.')
-      }
-    } else {
-      history.pushState({}, '', path)
-      route.page()
-    }
+    history.pushState({}, '', path)
+    route.page()
   }
 }
